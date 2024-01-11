@@ -217,7 +217,11 @@ valoare :  CARACTER { for (int i = 0; i < 2048; i++) { $$[i] = $1[i];} }
 
 %%
 int yyerror(char * s){
-printf("eroare: %s la linia:%d\n",s,yylineno);
+	printf("eroare: %s la linia:%d\n",s,yylineno);
+	FILE* fptr;
+	fptr = fopen("error.txt", "a");
+	fprintf(fptr, "%c\n",s);
+	fclose(fptr);
 }
 
 int main(int argc, char** argv){
