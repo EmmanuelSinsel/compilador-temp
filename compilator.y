@@ -24,7 +24,7 @@ char strval[2048];
 int intval;
 }
 
-%token <strval>STRCPY CONST <strval>STRCMP PRINT PRINTF LIBRARIE MAIN <strval>TIP <strval>NUME VECTOR <strval>CARACTER <strval>NUMAR STRUCT ATRIBUIRE MMARE MMIC DIFERIT EGAL PRODUS IMPARTIRE PLUS MINUS SI SAU IF ELSE FOR WHILE RETURN
+%token <strval>STRCPY CONST <strval>STRCMP PRINT PRINTF INICIO FIN HASTA CON PASO LIBRARIE MAIN <strval>TIP <strval>NUME VECTOR <strval>CARACTER <strval>NUMAR STRUCT ATRIBUIRE MMARE MMIC DIFERIT EGAL PRODUS IMPARTIRE PLUS MINUS SI SAU IF ELSE FOR WHILE RETURN
 %type <strval>valoare
 %type <strval>listaParametrii
 %type <strval>parametru
@@ -44,6 +44,12 @@ int intval;
 %start progr
 %%
 progr: listaLibrarii declaratii functieMain definitiiFunctii {}
+     | listaLibrarii declaratii functieMain {}
+     | declaratii functieMain definitiiFunctii {}
+     | declaratii functieMain {}
+     | functieMain definitiiFunctii {}
+     | listaLibrarii functieMain {}
+     | functieMain {}
      ;
 
 listaLibrarii :  LIBRARIE
@@ -72,15 +78,16 @@ listaParametrii : parametru { for (int i = 0; i < 2048; i++) { $$[i] = $1[i];} }
                 | listaParametrii ','  parametru { char s[2048]; strcpy(s, $1); strcat(s, " "); strcat(s, $3); for (int i = 0; i < 2048; i++) { $$[i] = s[i];} }
             ;
 
-parametru : TIP
+parametru : TIP NUME
           ;
 
         /* bloc */
 functieMain : MAIN bloc
      ;
 
-bloc : '{' listaInstructiuni RETURN expresie ';' '}'
-     | '{' listaInstructiuni RETURN valoare ';' '}'
+bloc : INICIO listaInstructiuni RETURN expresie ';' FIN
+     | INICIO listaInstructiuni RETURN valoare ';' FIN
+     | INICIO listaInstructiuni FIN
      ;
         /* lista instructiuni */
 listaInstructiuni : instructiune ';'
@@ -90,10 +97,10 @@ listaInstructiuni : instructiune ';'
                   ;
 
         /* instructiuneControl*/
-instructiuneControl : IF '(' conditie ')' '{' listaInstructiuni '}'
-        | IF '(' conditie ')' '{' listaInstructiuni '}' ELSE '{' listaInstructiuni '}'
-        | WHILE '(' conditie ')' '{' listaInstructiuni '}'
-        | FOR '(' instructiune ';' conditie ';' listaInstructiuni ')' '{' listaInstructiuni '}'
+instructiuneControl : IF '(' conditie ')' INICIO listaInstructiuni FIN
+        | IF '(' conditie ')' INICIO listaInstructiuni FIN ELSE INICIO listaInstructiuni FIN
+        | WHILE '(' conditie ')' INICIO listaInstructiuni FIN
+        | FOR '(' instructiune HASTA conditie CON PASO listaInstructiuni ')' INICIO listaInstructiuni FIN
         ;
 
         /* conditie*/
@@ -151,7 +158,13 @@ instructiune: NUME ATRIBUIRE valoare { if (seteazaValoare($1, $3, tabelaVariabil
             | NUME '.' NUME ATRIBUIRE NUME
             | NUME ATRIBUIRE NUME '.' NUME
             | declaratie
-            | PRINT '(' expresie ')' { printf("%d\n",$3); }
+            | PRINT '(' expresie ')' {
+            	printf("%d\n",$3);
+	        FILE* fptr;
+	        fptr = fopen("output.txt", "a");
+	        fprintf(fptr, "%d\n", $3);
+	        fclose(fptr);
+             }
             | PRINTF '(' NUME ')' { print($3, tabelaVariabile, nrVariabile); printf("\n");}
             ;
 
@@ -165,7 +178,7 @@ expresie: expresie PLUS expresie { $$ = $1 + $3; }
                 if (poz == -1) { $$ = ERR;}
                 else {
                   if (tabelaVariabile[poz].initializata == 0) { $$ = ERR; }
-                  if (strcmp(tabelaVariabile[poz].variabilaCurenta.tip, "entero") != 0) { $$ = ERR;}
+                  if (strcmp(tabelaVariabile[poz].variabilaCurenta.tip, "numero") != 0) { $$ = ERR;}
                   else { $$ = *((int *)(tabelaVariabile[poz].adresa)); } }
                 }
         | NUME '(' listaApelFunctie ')' {int rez;
@@ -208,6 +221,11 @@ printf("eroare: %s la linia:%d\n",s,yylineno);
 }
 
 int main(int argc, char** argv){
+	FILE* fptr;
+	fptr = fopen("output.txt", "w");
+	fprintf(fptr, "");
+	fclose(fptr);
+
 
         adaugaFunctieInTabela("maximum", "int", "int int", nrFunctii++, tabelaFunctii, 1);
         adaugaFunctieInTabela("minimum", "int", "int int", nrFunctii++, tabelaFunctii, 1);

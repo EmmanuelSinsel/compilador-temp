@@ -1,58 +1,36 @@
-#incluir <stdio.h>
 
-entero a;
-entero b;
-entero i;
-constante entero alo;
+numero a;
+numero b;
+numero i;
+numero t;
+constante numero alo;
 letra x;
-entero aro(entero);
-entero f(entero, entero);
-struct lfac{
-entero x1;
-struct a b;
-entero x2;
-};
-entero main()
-{
-	strcpy(a, b);
-	strcmp(a, b);
-	a := b;
-	si ((a < 2)&&(a diferente 2)||(a<5))
-	{
-		a := 2;
-	}
-	sino
-	{
-	si(a igual 2)
-	{
-		a:=a+2;
-	}
-	}
-	para(a:=0;a<n;a:=a+1;)
-	{
-	 entero z;
-	}
-	mientras(i<5)
-	{
-	i:=i+1;
-	}
-	lfac.b:= a;
-	f(a , b);
-	f(b, a);
-	aro(a);
-	b := 2;
-	entero d;
-	d := 3;
-    b := 4;
-    a := 3;
-	imprimir(b);
+numero num;
+
+numero main() inicio
+    decimal f;
+    f = 2;
+	si ((a < 2)&&(a diferente 2)||(a<5)) inicio
+		a = 2;
+	fin
+	sino inicio
+        si(a igual 2) inicio
+            a=a+2;
+        fin
+	fin
+	para(a=0 hasta a<n con paso a=a+1;) inicio
+	    numero z;
+	fin
+	mientras(i<5) inicio
+	    i=i+1;
+	fin
+	num = 34;
+	b = 2;
+	numero d;
+	d = 3;
+    b = 4;
+    a = 3;
+    imprimir(num);
+	imprimir(d);
 	imprimir(a*b);
-	x := 'a';
-	retornar a;
-}
-entero a( entero,letra )
-{
-	entero z;
-	z:=1;
-	retornar 1;
-}
+fin

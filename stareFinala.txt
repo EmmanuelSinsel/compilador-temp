@@ -14,50 +14,41 @@ Functia rezervata: 1
 Tip parametru 0: int
 Tip parametru 1: int
 
-Functia 2
-Nume: aro
-Tipul returnat: entero
-Functia rezervata: 0
-Tip parametru 0: entero
-
-Functia 3
-Nume: f
-Tipul returnat: entero
-Functia rezervata: 0
-Tip parametru 0: entero
-Tip parametru 1: entero
-
 
 Situatia variabilelor declarate dupa executia programului:
 Nume: a
-Tip: entero
+Tip: numero
 a = 3
 
 Nume: b
-Tip: entero
+Tip: numero
 b = 4
 
 Nume: i
-Tip: entero
+Tip: numero
 i = 1
+
+Nume: t
+Tip: numero
+Variabila nu este Initializata!
 
 Nume: x
 Tip: letra
-x = 'a'
-
-Nume: x1
-Tip: entero
 Variabila nu este Initializata!
 
-Nume: x2
-Tip: entero
-Variabila nu este Initializata!
+Nume: num
+Tip: numero
+num = 34
+
+Nume: f
+Tip: decimal
+f = 2.000000
 
 Nume: z
-Tip: entero
-z = 1
+Tip: numero
+Variabila nu este Initializata!
 
 Nume: d
-Tip: entero
+Tip: numero
 d = 3
 

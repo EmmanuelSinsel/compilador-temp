@@ -59,30 +59,35 @@ extern int yydebug;
     STRCMP = 260,                  /* STRCMP  */
     PRINT = 261,                   /* PRINT  */
     PRINTF = 262,                  /* PRINTF  */
-    LIBRARIE = 263,                /* LIBRARIE  */
-    MAIN = 264,                    /* MAIN  */
-    TIP = 265,                     /* TIP  */
-    NUME = 266,                    /* NUME  */
-    VECTOR = 267,                  /* VECTOR  */
-    CARACTER = 268,                /* CARACTER  */
-    NUMAR = 269,                   /* NUMAR  */
-    STRUCT = 270,                  /* STRUCT  */
-    ATRIBUIRE = 271,               /* ATRIBUIRE  */
-    MMARE = 272,                   /* MMARE  */
-    MMIC = 273,                    /* MMIC  */
-    DIFERIT = 274,                 /* DIFERIT  */
-    EGAL = 275,                    /* EGAL  */
-    PRODUS = 276,                  /* PRODUS  */
-    IMPARTIRE = 277,               /* IMPARTIRE  */
-    PLUS = 278,                    /* PLUS  */
-    MINUS = 279,                   /* MINUS  */
-    SI = 280,                      /* SI  */
-    SAU = 281,                     /* SAU  */
-    IF = 282,                      /* IF  */
-    ELSE = 283,                    /* ELSE  */
-    FOR = 284,                     /* FOR  */
-    WHILE = 285,                   /* WHILE  */
-    RETURN = 286                   /* RETURN  */
+    INICIO = 263,                  /* INICIO  */
+    FIN = 264,                     /* FIN  */
+    HASTA = 265,                   /* HASTA  */
+    CON = 266,                     /* CON  */
+    PASO = 267,                    /* PASO  */
+    LIBRARIE = 268,                /* LIBRARIE  */
+    MAIN = 269,                    /* MAIN  */
+    TIP = 270,                     /* TIP  */
+    NUME = 271,                    /* NUME  */
+    VECTOR = 272,                  /* VECTOR  */
+    CARACTER = 273,                /* CARACTER  */
+    NUMAR = 274,                   /* NUMAR  */
+    STRUCT = 275,                  /* STRUCT  */
+    ATRIBUIRE = 276,               /* ATRIBUIRE  */
+    MMARE = 277,                   /* MMARE  */
+    MMIC = 278,                    /* MMIC  */
+    DIFERIT = 279,                 /* DIFERIT  */
+    EGAL = 280,                    /* EGAL  */
+    PRODUS = 281,                  /* PRODUS  */
+    IMPARTIRE = 282,               /* IMPARTIRE  */
+    PLUS = 283,                    /* PLUS  */
+    MINUS = 284,                   /* MINUS  */
+    SI = 285,                      /* SI  */
+    SAU = 286,                     /* SAU  */
+    IF = 287,                      /* IF  */
+    ELSE = 288,                    /* ELSE  */
+    FOR = 289,                     /* FOR  */
+    WHILE = 290,                   /* WHILE  */
+    RETURN = 291                   /* RETURN  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -96,30 +101,35 @@ extern int yydebug;
 #define STRCMP 260
 #define PRINT 261
 #define PRINTF 262
-#define LIBRARIE 263
-#define MAIN 264
-#define TIP 265
-#define NUME 266
-#define VECTOR 267
-#define CARACTER 268
-#define NUMAR 269
-#define STRUCT 270
-#define ATRIBUIRE 271
-#define MMARE 272
-#define MMIC 273
-#define DIFERIT 274
-#define EGAL 275
-#define PRODUS 276
-#define IMPARTIRE 277
-#define PLUS 278
-#define MINUS 279
-#define SI 280
-#define SAU 281
-#define IF 282
-#define ELSE 283
-#define FOR 284
-#define WHILE 285
-#define RETURN 286
+#define INICIO 263
+#define FIN 264
+#define HASTA 265
+#define CON 266
+#define PASO 267
+#define LIBRARIE 268
+#define MAIN 269
+#define TIP 270
+#define NUME 271
+#define VECTOR 272
+#define CARACTER 273
+#define NUMAR 274
+#define STRUCT 275
+#define ATRIBUIRE 276
+#define MMARE 277
+#define MMIC 278
+#define DIFERIT 279
+#define EGAL 280
+#define PRODUS 281
+#define IMPARTIRE 282
+#define PLUS 283
+#define MINUS 284
+#define SI 285
+#define SAU 286
+#define IF 287
+#define ELSE 288
+#define FOR 289
+#define WHILE 290
+#define RETURN 291
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -130,7 +140,7 @@ union YYSTYPE
 char strval[2048];
 int intval;
 
-#line 134 "y.tab.h"
+#line 144 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

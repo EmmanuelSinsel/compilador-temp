@@ -134,7 +134,7 @@ int adaugaVariabilaInTabela(char *tipulVariabilei, char *numeleVariabilei, int p
 	strcpy(v.tip, tipulVariabilei);
 	void *adresaVariabila;
 	void *adresa;
-	if (strcmp(tipulVariabilei, "entero") == 0) {
+	if (strcmp(tipulVariabilei, "numero") == 0) {
 		adresa = malloc(sizeof(int));
 	}
 	if (strcmp(tipulVariabilei, "letra") == 0) {
@@ -168,7 +168,7 @@ void print(char *numeVariabila, struct celulaTabelaVariabila *tabela, int numarV
 	}
 	struct variabila v = tabela[pozitie].variabilaCurenta;
 
-	if (strcmp(v.tip, "entero") == 0) {
+	if (strcmp(v.tip, "numero") == 0) {
 		int valoareInt = *((int *)tabela[pozitie].adresa);
 		printf("%s = %d\n", numeVariabila, valoareInt);
 
@@ -208,7 +208,7 @@ int seteazaValoare(char *numeleVariabilei, char *valoare, struct celulaTabelaVar
 		struct variabila v2 = tabela[pozitieVariabila2].variabilaCurenta;
 		if (strcmp(v.tip, v2.tip) == 0) {
 			int dim;
-			if (strcmp(v.tip, "entero") == 0) {
+			if (strcmp(v.tip, "numero") == 0) {
 				dim = sizeof(int);
 			}
 			if (strcmp(v.tip, "letra") == 0) {
@@ -232,7 +232,7 @@ int seteazaValoare(char *numeleVariabilei, char *valoare, struct celulaTabelaVar
 			return 0;
 		}
 	}
-	if (strcmp(v.tip, "entero") == 0 && valoare[0] >= '0' && valoare[0] <= '9') {
+	if (strcmp(v.tip, "numero") == 0 && valoare[0] >= '0' && valoare[0] <= '9') {
 		int valoareInt = atoi(valoare);
 		memcpy(tabela[pozitie].adresa, &valoareInt, sizeof(int));
 

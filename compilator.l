@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "y.tab.h"
 %}
-tip "entero"|"decimal"|"letra"|"cadena"|"doble"
+tip "numero"|"decimal"|"letra"|"cadena"|"doble"
 nr [1-9][0-9]*
 cuvant [_a-zA-Z][_a-zA-Z0-9]*
 caracter \'[a-zA-Z]\'
@@ -23,7 +23,7 @@ struct {return STRUCT;}
 
 "#incluir"[ ]*({include1}|{include1}) { return LIBRARIE; }
 
-("vacio"|"entero")[ ]+main\(\) { return MAIN; }
+("vacio"|"numero")[ ]+main\(\) { return MAIN; }
 
 "strcpy" {return STRCPY;}
 
@@ -57,7 +57,17 @@ struct {return STRUCT;}
 
 "para" { return FOR; }
 
-("entero"|"decimal"|"letra"|"cadena") { strcpy(yylval.strval, yytext); return TIP;}
+"con" { return CON; }
+
+"paso" { return PASO; }
+
+"inicio" { return INICIO; }
+
+"fin" { return FIN; }
+
+"hasta" { return HASTA; }
+
+("numero"|"decimal"|"letra"|"cadena") { strcpy(yylval.strval, yytext); return TIP;}
 
 {cuvant}(\[{nr}\])+ { strcpy(yylval.strval, yytext); return VECTOR; }
 
@@ -67,7 +77,7 @@ struct {return STRUCT;}
 
 {cuvant} { strcpy(yylval.strval, yytext); return NUME; }
 
-":=" { return ATRIBUIRE; }
+"=" { return ATRIBUIRE; }
 
 [ \t] ;
 
