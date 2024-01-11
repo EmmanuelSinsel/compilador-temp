@@ -134,16 +134,16 @@ int adaugaVariabilaInTabela(char *tipulVariabilei, char *numeleVariabilei, int p
 	strcpy(v.tip, tipulVariabilei);
 	void *adresaVariabila;
 	void *adresa;
-	if (strcmp(tipulVariabilei, "int") == 0) {
+	if (strcmp(tipulVariabilei, "entero") == 0) {
 		adresa = malloc(sizeof(int));
 	}
-	if (strcmp(tipulVariabilei, "char") == 0) {
+	if (strcmp(tipulVariabilei, "letra") == 0) {
 		adresa = malloc(sizeof(char));
 	}
-	if (strcmp(tipulVariabilei, "float") == 0) {
+	if (strcmp(tipulVariabilei, "decimal") == 0) {
 		adresa = malloc(sizeof(float));
 	}
-	if (strcmp(tipulVariabilei, "string") == 0) {
+	if (strcmp(tipulVariabilei, "cadena") == 0) {
 		adresa = malloc(MAXSTRINGLENGTH * sizeof(char));
 	}
 	c.variabilaCurenta = v;
@@ -168,25 +168,25 @@ void print(char *numeVariabila, struct celulaTabelaVariabila *tabela, int numarV
 	}
 	struct variabila v = tabela[pozitie].variabilaCurenta;
 
-	if (strcmp(v.tip, "int") == 0) {
+	if (strcmp(v.tip, "entero") == 0) {
 		int valoareInt = *((int *)tabela[pozitie].adresa);
 		printf("%s = %d\n", numeVariabila, valoareInt);
 
 		return ;
 	}
-	if (strcmp(v.tip, "char") == 0) {
+	if (strcmp(v.tip, "letra") == 0) {
 		char valoareChar = *((char *)tabela[pozitie].adresa);
 		printf("%s = \'%c\'\n",numeVariabila , valoareChar);
 
 		return ;
 	}
-	if (strcmp(v.tip, "float") == 0) {
+	if (strcmp(v.tip, "decimal") == 0) {
 		float valoareFloat = *((float *)tabela[pozitie].adresa);
 		printf("%s = %f\n", numeVariabila, valoareFloat);
 
 		return ;	
 	}
-	if (strcmp(v.tip, "string") == 0) {
+	if (strcmp(v.tip, "cadena") == 0) {
 		printf("%s = \"%s\"\n", numeVariabila, (char *)tabela[pozitie].adresa);
 
 		return ;
@@ -208,16 +208,16 @@ int seteazaValoare(char *numeleVariabilei, char *valoare, struct celulaTabelaVar
 		struct variabila v2 = tabela[pozitieVariabila2].variabilaCurenta;
 		if (strcmp(v.tip, v2.tip) == 0) {
 			int dim;
-			if (strcmp(v.tip, "int") == 0) {
+			if (strcmp(v.tip, "entero") == 0) {
 				dim = sizeof(int);
 			}
-			if (strcmp(v.tip, "char") == 0) {
+			if (strcmp(v.tip, "letra") == 0) {
 				dim = sizeof(char);
 			}
-			if (strcmp(v.tip, "float") == 0) {
+			if (strcmp(v.tip, "decimal") == 0) {
 				dim = sizeof(float);
 			}
-			if (strcmp(v.tip, "string") == 0) {
+			if (strcmp(v.tip, "cadena") == 0) {
 				strcpy(tabela[pozitie].adresa, tabela[pozitieVariabila2].adresa);
 			} else {
 				int i;
@@ -232,28 +232,28 @@ int seteazaValoare(char *numeleVariabilei, char *valoare, struct celulaTabelaVar
 			return 0;
 		}
 	}
-	if (strcmp(v.tip, "int") == 0 && valoare[0] >= '0' && valoare[0] <= '9') {
+	if (strcmp(v.tip, "entero") == 0 && valoare[0] >= '0' && valoare[0] <= '9') {
 		int valoareInt = atoi(valoare);
 		memcpy(tabela[pozitie].adresa, &valoareInt, sizeof(int));
 
 		tabela[pozitie].initializata = 1;
 		return 1;
 	}
-	if (strcmp(v.tip, "char") == 0 && valoare[0] == '\'') {
+	if (strcmp(v.tip, "letra") == 0 && valoare[0] == '\'') {
 		char valoareChar = valoare[1];
 		memcpy(tabela[pozitie].adresa, &valoareChar, sizeof(char));
 
 		tabela[pozitie].initializata = 1;
 		return 1;
 	}
-	if (strcmp(v.tip, "float") == 0  && valoare[0] >= '0' && valoare[0] <= '9') {
+	if (strcmp(v.tip, "decimal") == 0  && valoare[0] >= '0' && valoare[0] <= '9') {
 		float valoareFloat = atof(valoare);
 		memcpy(tabela[pozitie].adresa, &valoareFloat, sizeof(float));
 
 		tabela[pozitie].initializata = 1;
 		return 1;	
 	}
-	if (strcmp(v.tip, "string") == 0 && valoare[0] == '\"') {
+	if (strcmp(v.tip, "cadena") == 0 && valoare[0] == '\"') {
 		char *p = (char *)malloc(MAXSTRINGLENGTH * sizeof(char));
 		for (int i = 0; i < strlen(valoare) - 2; i++) {
 			p[i] = valoare[i+1];

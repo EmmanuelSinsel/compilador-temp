@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "y.tab.h"
 %}
-tip "int"|"float"|"char"|"string"|"double"
+tip "entero"|"decimal"|"letra"|"cadena"|"doble"
 nr [1-9][0-9]*
 cuvant [_a-zA-Z][_a-zA-Z0-9]*
 caracter \'[a-zA-Z]\'
@@ -13,17 +13,17 @@ include2 \<{cuvant}\>
 %%
 struct {return STRUCT;}
 
-"const" {return CONST;}
+"constante" {return CONST;}
 
-"print" {return PRINT;}
+"imprimir" {return PRINT;}
 
 "printf" {return PRINTF;}
 
-"return" { return RETURN; }
+"retornar" { return RETURN; }
 
-"#include"[ ]*({include1}|{include1}) { return LIBRARIE; }
+"#incluir"[ ]*({include1}|{include1}) { return LIBRARIE; }
 
-("void"|"int")[ ]+main\(\) { return MAIN; }
+("vacio"|"entero")[ ]+main\(\) { return MAIN; }
 
 "strcpy" {return STRCPY;}
 
@@ -41,27 +41,27 @@ struct {return STRUCT;}
 
 "<" { return MMIC; }
 
-"!=" { return DIFERIT; }
+"diferente" { return DIFERIT; }
 
-"==" { return EGAL; }
+"igual" { return EGAL; }
 
 "||" { return SAU; }
 
 "&&" { return SI; }
 
-"if" { return IF; }
+"si" { return IF; }
 
-"else" {return ELSE;}
+"sino" {return ELSE;}
 
-"while" { return WHILE; }
+"mientras" { return WHILE; }
 
-"for" { return FOR; }
+"para" { return FOR; }
 
-("int"|"float"|"char"|"string") { strcpy(yylval.strval, yytext); return TIP;}
+("entero"|"decimal"|"letra"|"cadena") { strcpy(yylval.strval, yytext); return TIP;}
 
-{cuvant}(\[{nr}\])+ { strcpy(yylval.strval, yytext);  return VECTOR; }
+{cuvant}(\[{nr}\])+ { strcpy(yylval.strval, yytext); return VECTOR; }
 
-{caracter}|{caractere} { strcpy(yylval.strval, yytext);  return CARACTER; }
+{caracter}|{caractere} { strcpy(yylval.strval, yytext); return CARACTER; }
 
 0|[1-9][0-9]* { strcpy(yylval.strval, yytext); return NUMAR; }
 

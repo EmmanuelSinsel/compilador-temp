@@ -1,58 +1,58 @@
-#include <errno.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <signal.h>
-#include <pthread.h>
+#incluir <stdio.h>
 
-int a;
-int b;
-const int alo;
-char x;
-int aro(int);
-int f(int, int);
+entero a;
+entero b;
+entero i;
+constante entero alo;
+letra x;
+entero aro(entero);
+entero f(entero, entero);
 struct lfac{
-int x1;
+entero x1;
 struct a b;
-int x2;	
+entero x2;
 };
-int main()
+entero main()
 {
 	strcpy(a, b);
-	strcmp(a,b);
+	strcmp(a, b);
 	a := b;
-	if ((a < 2)&&(a!=2)||(a<5)) 
+	si ((a < 2)&&(a diferente 2)||(a<5))
 	{
 		a := 2;
 	}
-	else
+	sino
 	{
-	if(a==2)
+	si(a igual 2)
 	{
-			a:=a+2;
+		a:=a+2;
 	}
 	}
-	for(a:=0;a<n;a:=a+1;)
+	para(a:=0;a<n;a:=a+1;)
 	{
-	 int z;
+	 entero z;
+	}
+	mientras(i<5)
+	{
+	i:=i+1;
 	}
 	lfac.b:= a;
 	f(a , b);
 	f(b, a);
 	aro(a);
 	b := 2;
-	int d;
+	entero d;
 	d := 3;
-	b := maximum(a, b);
-	print(a);
+    b := 4;
+    a := 3;
+	imprimir(b);
+	imprimir(a*b);
 	x := 'a';
-	print( maximum(1, 2) );
-	return a;
+	retornar a;
 }
-int a( int,char )
+entero a( entero,letra )
 {
-	int z;
+	entero z;
 	z:=1;
-	return 1;
+	retornar 1;
 }

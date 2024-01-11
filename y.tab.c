@@ -77,6 +77,7 @@ int yyerror(char* s);
 #define MAXNUMBEROFVARIABLES 1024
 #define MAXNUMBEROFFUNCTIONS 1024
 #define ERR 12312312
+#define YYERROR_VERBOSE 1
 struct celulaTabelaVariabila tabelaVariabile[MAXNUMBEROFVARIABLES];
 struct celulaTabelaFunctii tabelaFunctii[MAXNUMBEROFFUNCTIONS];
 int nrVariabile = 0;
@@ -88,7 +89,7 @@ extern int yylineno;
 
 
 
-#line 92 "y.tab.c"
+#line 93 "y.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -203,12 +204,12 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 21 "compilator.y"
+#line 22 "compilator.y"
 
 char strval[2048];
 int intval;
 
-#line 212 "y.tab.c"
+#line 213 "y.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -672,14 +673,14 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    45,    45,    48,    49,    52,    53,    56,    57,    58,
-      59,    60,    61,    62,    63,    64,    65,    66,    67,    70,
-      71,    74,    78,    81,    82,    85,    86,    87,    88,    92,
-      93,    94,    95,    99,   100,   101,   102,   103,   104,   105,
-     106,   111,   112,   116,   117,   125,   126,   127,   128,   129,
-     130,   131,   132,   133,   147,   148,   149,   150,   151,   152,
-     153,   156,   157,   158,   159,   160,   161,   162,   169,   187,
-     190,   191,   192,   193,   194,   195,   196,   197,   200
+       0,    46,    46,    49,    50,    53,    54,    57,    58,    59,
+      60,    61,    62,    63,    64,    65,    66,    67,    68,    71,
+      72,    75,    79,    82,    83,    86,    87,    88,    89,    93,
+      94,    95,    96,   100,   101,   102,   103,   104,   105,   106,
+     107,   112,   113,   117,   118,   126,   127,   128,   129,   130,
+     131,   132,   133,   134,   149,   150,   151,   152,   153,   154,
+     155,   158,   159,   160,   161,   162,   163,   164,   171,   189,
+     192,   193,   194,   195,   196,   197,   198,   199,   202
 };
 #endif
 
@@ -1384,69 +1385,70 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* progr: listaLibrarii declaratii functieMain definitiiFunctii  */
-#line 45 "compilator.y"
-                                                             {printf("\n\nProgram corect sintactic!!!\n");}
-#line 1390 "y.tab.c"
+#line 46 "compilator.y"
+                                                             {}
+#line 1391 "y.tab.c"
     break;
 
   case 7: /* declaratie: TIP NUME  */
-#line 56 "compilator.y"
+#line 57 "compilator.y"
                        { int rez = adaugaVariabilaInTabela((yyvsp[-1].strval), (yyvsp[0].strval), nrVariabile, tabelaVariabile); if (rez == 0) { } else {nrVariabile++;} }
-#line 1396 "y.tab.c"
+#line 1397 "y.tab.c"
     break;
 
   case 10: /* declaratie: TIP NUME '(' listaParametrii ')'  */
-#line 59 "compilator.y"
+#line 60 "compilator.y"
                                                { adaugaFunctieInTabela((yyvsp[-3].strval), (yyvsp[-4].strval), (yyvsp[-1].strval), nrFunctii++,tabelaFunctii, 0); }
-#line 1402 "y.tab.c"
+#line 1403 "y.tab.c"
     break;
 
   case 19: /* listaParametrii: parametru  */
-#line 70 "compilator.y"
+#line 71 "compilator.y"
                             { for (int i = 0; i < 2048; i++) { (yyval.strval)[i] = (yyvsp[0].strval)[i];} }
-#line 1408 "y.tab.c"
+#line 1409 "y.tab.c"
     break;
 
   case 20: /* listaParametrii: listaParametrii ',' parametru  */
-#line 71 "compilator.y"
+#line 72 "compilator.y"
                                                  { char s[2048]; strcpy(s, (yyvsp[-2].strval)); strcat(s, " "); strcat(s, (yyvsp[0].strval)); for (int i = 0; i < 2048; i++) { (yyval.strval)[i] = s[i];} }
-#line 1414 "y.tab.c"
+#line 1415 "y.tab.c"
     break;
 
   case 40: /* conditie: NUME  */
-#line 106 "compilator.y"
-                { 
+#line 107 "compilator.y"
+                {
             int pozitie = pozitiaVariabileiInTabela((yyvsp[0].strval), tabelaVariabile, nrVariabile);
             if (pozitie == -1) {
             }
          }
-#line 1424 "y.tab.c"
+#line 1425 "y.tab.c"
     break;
 
   case 43: /* instructiune: NUME ATRIBUIRE valoare  */
-#line 116 "compilator.y"
-                                     { if (seteazaValoare((yyvsp[-2].strval), (yyvsp[0].strval), tabelaVariabile, nrVariabile) == 1) {} else printf("Eroare semantica la linia %d\n", yylineno); }
-#line 1430 "y.tab.c"
+#line 117 "compilator.y"
+                                     { if (seteazaValoare((yyvsp[-2].strval), (yyvsp[0].strval), tabelaVariabile, nrVariabile) == 1) {} else {} }
+#line 1431 "y.tab.c"
     break;
 
   case 44: /* instructiune: NUME ATRIBUIRE expresie  */
-#line 117 "compilator.y"
-                                      { 
+#line 118 "compilator.y"
+                                      {
                 char buff[2048];
                 int rezultat = (yyvsp[0].intval);
                 sprintf(buff, "%d", rezultat);
                 if (seteazaValoare((yyvsp[-2].strval), buff, tabelaVariabile, nrVariabile) && (yyvsp[0].intval) != ERR)
-                {}
+		{}
                 else printf("Eroare semantica la linia %d\n", yylineno);
             }
-#line 1443 "y.tab.c"
+#line 1444 "y.tab.c"
     break;
 
   case 53: /* instructiune: NUME '(' listaApelFunctie ')'  */
-#line 133 "compilator.y"
-                                            {int rez; 
-                if ((rez = verificaFunctie((yyvsp[-3].strval), (yyvsp[-1].strval), tabelaFunctii, tabelaVariabile, nrFunctii, nrVariabile)) == 1) {   }
-                if (rez == 1) { 
+#line 134 "compilator.y"
+                                            {int rez;
+                if ((rez = verificaFunctie((yyvsp[-3].strval), (yyvsp[-1].strval), tabelaFunctii, tabelaVariabile, nrFunctii, nrVariabile)) == 1) { }
+                else { }
+                if (rez == 1) {
                         int pozitie = -1;
                         for (int i = 0; i < nrFunctii; i++) {
                                 if (strcmp(tabelaFunctii[i].nume, (yyvsp[-3].strval)) == 0) {
@@ -1458,75 +1460,75 @@ yyreduce:
                                 printf("%d\n", executaFunctieRezervata(pozitie,(yyvsp[-1].strval) ,tabelaVariabile, nrVariabile, tabelaFunctii, nrFunctii));
                         }
                 } }
-#line 1462 "y.tab.c"
+#line 1464 "y.tab.c"
     break;
 
   case 59: /* instructiune: PRINT '(' expresie ')'  */
-#line 152 "compilator.y"
-                                     { printf("%d\n", (yyvsp[-1].intval)); }
-#line 1468 "y.tab.c"
+#line 154 "compilator.y"
+                                     { printf("%d\n",(yyvsp[-1].intval)); }
+#line 1470 "y.tab.c"
     break;
 
   case 60: /* instructiune: PRINTF '(' NUME ')'  */
-#line 153 "compilator.y"
-                                  { print((yyvsp[-1].strval), tabelaVariabile, nrVariabile);}
-#line 1474 "y.tab.c"
+#line 155 "compilator.y"
+                                  { print((yyvsp[-1].strval), tabelaVariabile, nrVariabile); printf("\n");}
+#line 1476 "y.tab.c"
     break;
 
   case 61: /* expresie: expresie PLUS expresie  */
-#line 156 "compilator.y"
+#line 158 "compilator.y"
                                  { (yyval.intval) = (yyvsp[-2].intval) + (yyvsp[0].intval); }
-#line 1480 "y.tab.c"
+#line 1482 "y.tab.c"
     break;
 
   case 62: /* expresie: expresie PRODUS expresie  */
-#line 157 "compilator.y"
+#line 159 "compilator.y"
                                     { (yyval.intval) = (yyvsp[-2].intval) * (yyvsp[0].intval); }
-#line 1486 "y.tab.c"
+#line 1488 "y.tab.c"
     break;
 
   case 63: /* expresie: expresie MINUS expresie  */
-#line 158 "compilator.y"
+#line 160 "compilator.y"
                                   { (yyval.intval) = (yyvsp[-2].intval) - (yyvsp[0].intval); }
-#line 1492 "y.tab.c"
+#line 1494 "y.tab.c"
     break;
 
   case 64: /* expresie: expresie IMPARTIRE expresie  */
-#line 159 "compilator.y"
+#line 161 "compilator.y"
                                       { (yyval.intval) = (yyvsp[-2].intval) / (yyvsp[0].intval); }
-#line 1498 "y.tab.c"
+#line 1500 "y.tab.c"
     break;
 
   case 65: /* expresie: '(' expresie ')'  */
-#line 160 "compilator.y"
+#line 162 "compilator.y"
                            { (yyval.intval) = (yyvsp[-1].intval); }
-#line 1504 "y.tab.c"
+#line 1506 "y.tab.c"
     break;
 
   case 66: /* expresie: NUMAR  */
-#line 161 "compilator.y"
+#line 163 "compilator.y"
                 { (yyval.intval) = atoi((yyvsp[0].strval)); }
-#line 1510 "y.tab.c"
+#line 1512 "y.tab.c"
     break;
 
   case 67: /* expresie: NUME  */
-#line 162 "compilator.y"
-               { int poz = pozitiaVariabileiInTabela((yyvsp[0].strval), tabelaVariabile, nrVariabile); 
+#line 164 "compilator.y"
+               { int poz = pozitiaVariabileiInTabela((yyvsp[0].strval), tabelaVariabile, nrVariabile);
                 if (poz == -1) { (yyval.intval) = ERR;}
                 else {
                   if (tabelaVariabile[poz].initializata == 0) { (yyval.intval) = ERR; }
-                  if (strcmp(tabelaVariabile[poz].variabilaCurenta.tip, "int") != 0) { (yyval.intval) = ERR;}
+                  if (strcmp(tabelaVariabile[poz].variabilaCurenta.tip, "entero") != 0) { (yyval.intval) = ERR;}
                   else { (yyval.intval) = *((int *)(tabelaVariabile[poz].adresa)); } }
                 }
-#line 1522 "y.tab.c"
+#line 1524 "y.tab.c"
     break;
 
   case 68: /* expresie: NUME '(' listaApelFunctie ')'  */
-#line 169 "compilator.y"
-                                        {int rez; 
-                if ((rez = verificaFunctie((yyvsp[-3].strval), (yyvsp[-1].strval), tabelaFunctii, tabelaVariabile, nrFunctii, nrVariabile)) == 1) {  }
+#line 171 "compilator.y"
+                                        {int rez;
+                if ((rez = verificaFunctie((yyvsp[-3].strval), (yyvsp[-1].strval), tabelaFunctii, tabelaVariabile, nrFunctii, nrVariabile)) == 1) { }
                 else { }
-                if (rez == 1) { 
+                if (rez == 1) {
                         int pozitie = -1;
                         for (int i = 0; i < nrFunctii; i++) {
                                 if (strcmp(tabelaFunctii[i].nume, (yyvsp[-3].strval)) == 0) {
@@ -1538,29 +1540,29 @@ yyreduce:
                                 (yyval.intval) = executaFunctieRezervata(pozitie,(yyvsp[-1].strval) ,tabelaVariabile, nrVariabile, tabelaFunctii, nrFunctii);
                         }
                 } }
-#line 1542 "y.tab.c"
+#line 1544 "y.tab.c"
     break;
 
   case 70: /* listaApelFunctie: NUME  */
-#line 190 "compilator.y"
+#line 192 "compilator.y"
                         { for (int i = 0; i < 2048; i++) { (yyval.strval)[i] = (yyvsp[0].strval)[i];} }
-#line 1548 "y.tab.c"
+#line 1550 "y.tab.c"
     break;
 
   case 71: /* listaApelFunctie: listaApelFunctie ',' NUME  */
-#line 191 "compilator.y"
+#line 193 "compilator.y"
                                              { char s[2048]; strcpy(s, (yyvsp[-2].strval)); strcat(s, " "); strcat(s , (yyvsp[0].strval));  for (int i = 0; i < 2048; i++) { (yyval.strval)[i] = s[i];}}
-#line 1554 "y.tab.c"
+#line 1556 "y.tab.c"
     break;
 
   case 78: /* valoare: CARACTER  */
-#line 200 "compilator.y"
+#line 202 "compilator.y"
                     { for (int i = 0; i < 2048; i++) { (yyval.strval)[i] = (yyvsp[0].strval)[i];} }
-#line 1560 "y.tab.c"
+#line 1562 "y.tab.c"
     break;
 
 
-#line 1564 "y.tab.c"
+#line 1566 "y.tab.c"
 
       default: break;
     }
@@ -1753,7 +1755,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 203 "compilator.y"
+#line 205 "compilator.y"
 
 int yyerror(char * s){
 printf("eroare: %s la linia:%d\n",s,yylineno);
@@ -1767,27 +1769,27 @@ int main(int argc, char** argv){
         yyparse();
 
         freopen("stareFinala.txt", "w", stdout);
-//        printf("Functiile declarate in program: \n\n");
+        printf("Functiile declarate in program: \n\n");
         for (int i = 0; i < nrFunctii; i++) {
-//                printf("Functia %d\n", i);
-//                printf("Nume: %s\n", tabelaFunctii[i].nume);
-//                printf("Tipul returnat: %s\n", tabelaFunctii[i].tipReturnat);
-//                printf("Functia rezervata: %d\n", tabelaFunctii[i].rezervata);
+                printf("Functia %d\n", i);
+                printf("Nume: %s\n", tabelaFunctii[i].nume);
+                printf("Tipul returnat: %s\n", tabelaFunctii[i].tipReturnat);
+                printf("Functia rezervata: %d\n", tabelaFunctii[i].rezervata);
                 for (int j = 0; j < tabelaFunctii[i].numarParametrii; j++) {
-//                        printf("Tip parametru %d: %s\n", j, tabelaFunctii[i].tipParametrii[j]);
+                        printf("Tip parametru %d: %s\n", j, tabelaFunctii[i].tipParametrii[j]);
                 }
-//                printf("\n");
+                printf("\n");
         }
 
-//        printf("\n");
+        printf("\n");
 
-//        printf("Situatia variabilelor declarate dupa executia programului:\n");
+        printf("Situatia variabilelor declarate dupa executia programului:\n");
         for (int i = 0; i < nrVariabile; i++) {
                 struct variabila v;
                 v = tabelaVariabile[i].variabilaCurenta;
-//                printf("Nume: %s\n", v.nume);
-//                printf("Tip: %s\n", v.tip);
-//                print(v.nume, tabelaVariabile, nrVariabile);
-//                printf("\n");
+                printf("Nume: %s\n", v.nume);
+                printf("Tip: %s\n", v.tip);
+                print(v.nume, tabelaVariabile, nrVariabile);
+                printf("\n");
         }
 }

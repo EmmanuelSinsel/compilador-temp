@@ -7,6 +7,7 @@ int yyerror(char* s);
 #define MAXNUMBEROFVARIABLES 1024
 #define MAXNUMBEROFFUNCTIONS 1024
 #define ERR 12312312
+#define YYERROR_VERBOSE 1
 struct celulaTabelaVariabila tabelaVariabile[MAXNUMBEROFVARIABLES];
 struct celulaTabelaFunctii tabelaFunctii[MAXNUMBEROFFUNCTIONS];
 int nrVariabile = 0;
@@ -42,7 +43,7 @@ int intval;
 %left NUME CARACTER NUMAR
 %start progr
 %%
-progr: listaLibrarii declaratii functieMain definitiiFunctii {printf("\n\nProgram corect sintactic!!!\n");}
+progr: listaLibrarii declaratii functieMain definitiiFunctii {}
      ;
 
 listaLibrarii :  LIBRARIE
@@ -54,36 +55,36 @@ declaratii : declaratie ';'
            ;
 
 declaratie : TIP NUME  { int rez = adaugaVariabilaInTabela($1, $2, nrVariabile, tabelaVariabile); if (rez == 0) { } else {nrVariabile++;} }
-           | TIP VECTOR  
-           | TIP NUME '('')'  
+           | TIP VECTOR
+           | TIP NUME '('')'
            | TIP NUME '(' listaParametrii ')'  { adaugaFunctieInTabela($2, $1, $4, nrFunctii++,tabelaFunctii, 0); }
            | STRUCT NUME'{' declaratii '}'
-           | STRUCT NUME NUME 
-           | CONST TIP NUME  
-           | CONST TIP VECTOR  
-           | CONST TIP NUME '('')'  
-           | CONST TIP NUME '(' listaParametrii ')' 
+           | STRUCT NUME NUME
+           | CONST TIP NUME
+           | CONST TIP VECTOR
+           | CONST TIP NUME '('')'
+           | CONST TIP NUME '(' listaParametrii ')'
            | CONST STRUCT NUME'{' declaratii '}'
-           | CONST STRUCT NUME NUME 
+           | CONST STRUCT NUME NUME
            ;
 
 listaParametrii : parametru { for (int i = 0; i < 2048; i++) { $$[i] = $1[i];} }
                 | listaParametrii ','  parametru { char s[2048]; strcpy(s, $1); strcat(s, " "); strcat(s, $3); for (int i = 0; i < 2048; i++) { $$[i] = s[i];} }
             ;
-            
-parametru : TIP 
-          ; 
+
+parametru : TIP
+          ;
 
         /* bloc */
-functieMain : MAIN bloc 
+functieMain : MAIN bloc
      ;
 
 bloc : '{' listaInstructiuni RETURN expresie ';' '}'
      | '{' listaInstructiuni RETURN valoare ';' '}'
      ;
         /* lista instructiuni */
-listaInstructiuni : instructiune ';' 
-                  | listaInstructiuni instructiune ';' 
+listaInstructiuni : instructiune ';'
+                  | listaInstructiuni instructiune ';'
                   | instructiuneControl
                   | listaInstructiuni instructiuneControl
                   ;
@@ -103,7 +104,7 @@ conditie : conditie MMARE conditie
          | conditie SI conditie
          | conditie SAU conditie
          | '('  conditie ')'
-         | NUME { 
+         | NUME {
             int pozitie = pozitiaVariabileiInTabela($1, tabelaVariabile, nrVariabile);
             if (pozitie == -1) {
             }
@@ -113,13 +114,13 @@ conditie : conditie MMARE conditie
          ;
 
         /* instructiune */
-instructiune: NUME ATRIBUIRE valoare { if (seteazaValoare($1, $3, tabelaVariabile, nrVariabile) == 1) {} else printf("Eroare semantica la linia %d\n", yylineno); }
-            | NUME ATRIBUIRE expresie { 
+instructiune: NUME ATRIBUIRE valoare { if (seteazaValoare($1, $3, tabelaVariabile, nrVariabile) == 1) {} else {} }
+            | NUME ATRIBUIRE expresie {
                 char buff[2048];
                 int rezultat = $3;
                 sprintf(buff, "%d", rezultat);
                 if (seteazaValoare($1, buff, tabelaVariabile, nrVariabile) && $3 != ERR)
-                {}
+		{}
                 else printf("Eroare semantica la linia %d\n", yylineno);
             }
             | STRCPY '(' NUME ',' NUME ')'
@@ -130,9 +131,10 @@ instructiune: NUME ATRIBUIRE valoare { if (seteazaValoare($1, $3, tabelaVariabil
             | STRCMP '(' NUME ',' CARACTER ')'
             | STRCMP '(' CARACTER ',' CARACTER ')'
             | STRCMP '(' CARACTER ',' NUME ')'
-            | NUME '(' listaApelFunctie ')' {int rez; 
-                if ((rez = verificaFunctie($1, $3, tabelaFunctii, tabelaVariabile, nrFunctii, nrVariabile)) == 1) {   }
-                if (rez == 1) { 
+            | NUME '(' listaApelFunctie ')' {int rez;
+                if ((rez = verificaFunctie($1, $3, tabelaFunctii, tabelaVariabile, nrFunctii, nrVariabile)) == 1) { }
+                else { }
+                if (rez == 1) {
                         int pozitie = -1;
                         for (int i = 0; i < nrFunctii; i++) {
                                 if (strcmp(tabelaFunctii[i].nume, $1) == 0) {
@@ -149,8 +151,8 @@ instructiune: NUME ATRIBUIRE valoare { if (seteazaValoare($1, $3, tabelaVariabil
             | NUME '.' NUME ATRIBUIRE NUME
             | NUME ATRIBUIRE NUME '.' NUME
             | declaratie
-            | PRINT '(' expresie ')' { printf("%d\n", $3); }
-            | PRINTF '(' NUME ')' { print($3, tabelaVariabile, nrVariabile);}
+            | PRINT '(' expresie ')' { printf("%d\n",$3); }
+            | PRINTF '(' NUME ')' { print($3, tabelaVariabile, nrVariabile); printf("\n");}
             ;
 
 expresie: expresie PLUS expresie { $$ = $1 + $3; }
@@ -159,17 +161,17 @@ expresie: expresie PLUS expresie { $$ = $1 + $3; }
         | expresie IMPARTIRE expresie { $$ = $1 / $3; }
         | '(' expresie ')' { $$ = $2; }
         | NUMAR { $$ = atoi($1); }
-        | NUME { int poz = pozitiaVariabileiInTabela($1, tabelaVariabile, nrVariabile); 
+        | NUME { int poz = pozitiaVariabileiInTabela($1, tabelaVariabile, nrVariabile);
                 if (poz == -1) { $$ = ERR;}
                 else {
                   if (tabelaVariabile[poz].initializata == 0) { $$ = ERR; }
-                  if (strcmp(tabelaVariabile[poz].variabilaCurenta.tip, "int") != 0) { $$ = ERR;}
+                  if (strcmp(tabelaVariabile[poz].variabilaCurenta.tip, "entero") != 0) { $$ = ERR;}
                   else { $$ = *((int *)(tabelaVariabile[poz].adresa)); } }
                 }
-        | NUME '(' listaApelFunctie ')' {int rez; 
-                if ((rez = verificaFunctie($1, $3, tabelaFunctii, tabelaVariabile, nrFunctii, nrVariabile)) == 1) {  }
+        | NUME '(' listaApelFunctie ')' {int rez;
+                if ((rez = verificaFunctie($1, $3, tabelaFunctii, tabelaVariabile, nrFunctii, nrVariabile)) == 1) { }
                 else { }
-                if (rez == 1) { 
+                if (rez == 1) {
                         int pozitie = -1;
                         for (int i = 0; i < nrFunctii; i++) {
                                 if (strcmp(tabelaFunctii[i].nume, $1) == 0) {
@@ -180,14 +182,14 @@ expresie: expresie PLUS expresie { $$ = $1 + $3; }
                         if (tabelaFunctii[pozitie].rezervata == 1) {
                                 $$ = executaFunctieRezervata(pozitie,$3 ,tabelaVariabile, nrVariabile, tabelaFunctii, nrFunctii);
                         }
-                } }  
+                } }
         ;
 
 /*definitiiFunctii*/
 definitiiFunctii : TIP NUME '(' listaParametrii ')' bloc
            ;
-        
-listaApelFunctie : NUME { for (int i = 0; i < 2048; i++) { $$[i] = $1[i];} }  
+
+listaApelFunctie : NUME { for (int i = 0; i < 2048; i++) { $$[i] = $1[i];} }
                  | listaApelFunctie ',' NUME { char s[2048]; strcpy(s, $1); strcat(s, " "); strcat(s , $3);  for (int i = 0; i < 2048; i++) { $$[i] = s[i];}}
                  | NUMAR
      | listaApelFunctie ',' NUMAR
@@ -213,27 +215,27 @@ int main(int argc, char** argv){
         yyparse();
 
         freopen("stareFinala.txt", "w", stdout);
-//        printf("Functiile declarate in program: \n\n");
+        printf("Functiile declarate in program: \n\n");
         for (int i = 0; i < nrFunctii; i++) {
-//                printf("Functia %d\n", i);
-//                printf("Nume: %s\n", tabelaFunctii[i].nume);
-//                printf("Tipul returnat: %s\n", tabelaFunctii[i].tipReturnat);
-//                printf("Functia rezervata: %d\n", tabelaFunctii[i].rezervata);
+                printf("Functia %d\n", i);
+                printf("Nume: %s\n", tabelaFunctii[i].nume);
+                printf("Tipul returnat: %s\n", tabelaFunctii[i].tipReturnat);
+                printf("Functia rezervata: %d\n", tabelaFunctii[i].rezervata);
                 for (int j = 0; j < tabelaFunctii[i].numarParametrii; j++) {
-//                        printf("Tip parametru %d: %s\n", j, tabelaFunctii[i].tipParametrii[j]);
+                        printf("Tip parametru %d: %s\n", j, tabelaFunctii[i].tipParametrii[j]);
                 }
-//                printf("\n");
+                printf("\n");
         }
 
-//        printf("\n");
+        printf("\n");
 
-//        printf("Situatia variabilelor declarate dupa executia programului:\n");
+        printf("Situatia variabilelor declarate dupa executia programului:\n");
         for (int i = 0; i < nrVariabile; i++) {
                 struct variabila v;
                 v = tabelaVariabile[i].variabilaCurenta;
-//                printf("Nume: %s\n", v.nume);
-//                printf("Tip: %s\n", v.tip);
-//                print(v.nume, tabelaVariabile, nrVariabile);
-//                printf("\n");
+                printf("Nume: %s\n", v.nume);
+                printf("Tip: %s\n", v.tip);
+                print(v.nume, tabelaVariabile, nrVariabile);
+                printf("\n");
         }
 }

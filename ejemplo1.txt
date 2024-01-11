@@ -1,0 +1,22 @@
+#incluir <stdio.h>
+
+entero a;
+entero b;
+constante entero alo;
+
+entero main()
+{
+	a := b;
+	si ((a < 2)&&(a!=2)||(a<5))
+	{
+		a := 2;
+	}
+	sino
+	{
+        si(a igual 2)
+        {
+            a:=a+2;
+        }
+	}
+	escribir(a);
+}

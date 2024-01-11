@@ -1,0 +1,63 @@
+Functiile declarate in program: 
+
+Functia 0
+Nume: maximum
+Tipul returnat: int
+Functia rezervata: 1
+Tip parametru 0: int
+Tip parametru 1: int
+
+Functia 1
+Nume: minimum
+Tipul returnat: int
+Functia rezervata: 1
+Tip parametru 0: int
+Tip parametru 1: int
+
+Functia 2
+Nume: aro
+Tipul returnat: entero
+Functia rezervata: 0
+Tip parametru 0: entero
+
+Functia 3
+Nume: f
+Tipul returnat: entero
+Functia rezervata: 0
+Tip parametru 0: entero
+Tip parametru 1: entero
+
+
+Situatia variabilelor declarate dupa executia programului:
+Nume: a
+Tip: entero
+a = 3
+
+Nume: b
+Tip: entero
+b = 4
+
+Nume: i
+Tip: entero
+i = 1
+
+Nume: x
+Tip: letra
+x = 'a'
+
+Nume: x1
+Tip: entero
+Variabila nu este Initializata!
+
+Nume: x2
+Tip: entero
+Variabila nu este Initializata!
+
+Nume: z
+Tip: entero
+z = 1
+
+Nume: d
+Tip: entero
+d = 3
+

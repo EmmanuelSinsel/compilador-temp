@@ -125,7 +125,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 21 "compilator.y"
+#line 22 "compilator.y"
 
 char strval[2048];
 int intval;
