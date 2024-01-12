@@ -220,15 +220,15 @@ int yyerror(char * s){
 	printf("eroare: %s la linia:%d\n",s,yylineno);
 	FILE* fptr;
 	fptr = fopen("error.txt", "a");
-	fprintf(fptr, "%c\n",s);
+	fprintf(fptr, "%s en la linea: %d\n",s, yylineno);
 	fclose(fptr);
 }
 
 int main(int argc, char** argv){
 	FILE* fptr;
-	fptr = fopen("output.txt", "w");
-	fprintf(fptr, "");
-	fclose(fptr);
+	fclose(fopen("output.txt", "w"));
+        FILE* fptrE;
+        fclose(fopen("error.txt", "w"));
 
 
         adaugaFunctieInTabela("maximum", "int", "int int", nrFunctii++, tabelaFunctii, 1);
